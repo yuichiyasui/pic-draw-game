@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", function() {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
+  var player1Comment = document.getElementById("player1-comment");
+  var player1CommentForm = document.getElementById("player1CommentForm");
+
+  // socket.io
+  var socketio = io.connect("http://localhost:3000");
+  socketio.on("chat", function(msg) {
+    player1Comment.textContent = msg;
+  });
+
   var player1Color = document.getElementById("player1-color");
   var player1Size = document.getElementById("player1-size");
 
@@ -117,4 +126,11 @@ document.addEventListener("DOMContentLoaded", function() {
   document
     .getElementById("player1-name-edit-button")
     .addEventListener("click", player1NameEdit);
+  document
+    .getElementById("player1CommentButton")
+    .addEventListener("click", function(e) {
+      e.preventDefault();
+      socketio.emit("chat", player1CommentForm.value);
+      player1CommentForm.value = "";
+    });
 });
