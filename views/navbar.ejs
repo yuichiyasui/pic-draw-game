@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info mb-4">
+      <a class="navbar-brand" href="#">絵しりとりゲーム</a>
+      <button
+        type="button"
+        class="navbar-toggler"
+        data-toggle="collapse"
+        data-target="#Navber"
+        aria-controls="Navber"
+        aria-expanded="false"
+        aria-label="ナビゲーションの切替"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="Navber">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#ruleModal">
+              ルール
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+
+    <div class="modal fade" id="ruleModal" tabindex="-1" role="dialog" aria-labelledby="ruleModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ruleModalLabel">ルール説明</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <ul>
+                <li>交代でお絵かきをしてしりとりをしていきます。</li>
+                <li>9枚目の絵を描いたら終了です。</li>
+                <li>全部しりとりでつながってたら二人とも勝ちです。</li>
+                <li>うまくつながってない場合は受け取り間違えた人が負けです。</li>
+                <li>ゲーム中にチャットで答えを言うのは禁止です。</li>
+                <li>名前の右のセレクターで色とペンの太さが変えられます。</li>
+                <li>書き直す場合はペンの色を白にして消してください。</li>
+
+            </ul></p>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+  </body>
+</html>
