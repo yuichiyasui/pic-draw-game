@@ -26,12 +26,6 @@
             <div class="col-sm-7 d-flex align-items-end px-0 ml-3">
               <span id="player1-name" class="h3 text-secondary">Player1</span>
             </div>
-            <div class="col-sm-2 d-flex align-items-center">
-              <input type="color" id="player1-color" value="#000000" />
-            </div>
-            <div class="ml-auto">
-              <input type="range" id="player1-size" class="custom-range" min="5" max="20" />
-            </div>
           </div>
           <form id="player1-name-edit-form" class="form-group row" style="visibility: hidden;">
             <div class="col-sm-7 pr-1">
@@ -65,12 +59,22 @@
         <div id="canvas-wrap" class="my-2">
           <canvas id="canvas" width="400px" height="400px"></canvas>
         </div>
-        <button type="button" class="btn btn-info btn-block" id="submitImageButton">
-          これでOK
-        </button>
-        <button type="button" class="btn btn-warning btn-block text-white" id="clearButton">
-          描き直す
-        </button>
+        <div class="row justify-content-sm-center mt-3">
+          <div class="col-sm-3">
+            <input type="color" id="draw-color" value="#000000" />
+          </div>
+          <div class="col-sm-7">
+            <input type="range" id="draw-size" class="custom-range" min="5" max="20" />
+          </div>
+        </div>
+        <div class="row justify-content-sm-center mt-2">
+          <button type="button" class="btn btn-info col-sm-5 mx-2" id="submitImageButton">
+            これでOK
+          </button>
+          <button type="button" class="btn btn-warning text-white col-sm-5 mx-2" id="clearButton">
+            描き直す
+          </button>
+        </div>
         <div class="row">
           <% for(var i = 1; i <= 8; i++){ %>
           <div class="col-sm-3">
@@ -85,30 +89,39 @@
 
       <!-- プレイヤー2 -->
       <div class="col-sm-3 card">
-        <div class="row py-3 pr-3">
-          <div class="col-2">
-            <i class="fa fa-user-circle-o fa-3x text-secondary"></i>
+        <div class="card-text">
+          <div class="row my-2 py-3 pr-3">
+            <div class="col-sm-2 text-center ml-3 px-0">
+              <i id="show-player2-name-edit" class="fa fa-user-circle-o fa-3x text-secondary"></i>
+            </div>
+            <div class="col-sm-7 d-flex align-items-end px-0 ml-3">
+              <span id="player2-name" class="h3 text-secondary">Player2</span>
+            </div>
           </div>
-          <div class="col-sm-8 d-flex align-items-end">
-            <span class="h3 text-secondary">Player2</span>
-          </div>
-          <div class="col-sm-2 d-flex align-items-center">
-            <input type="color" id="player2-color" value="#000000" />
-          </div>
-          <div class="ml-auto">
-            <input type="range" id="player2-size" min="5" max="20" />
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="button-addon2" />
-          <div class="input-group-append">
-            <button type="button" id="button-addon3" class="btn btn-info">
-              送信
-            </button>
-          </div>
-        </div>
-        <div id="player2-comment">
-          <!-- 送信したコメントを表示する -->
+          <form id="player2-name-edit-form" class="form-group row" style="visibility: hidden;">
+            <div class="col-sm-7 pr-1">
+              <input type="text" id="player2-input-name" class="form-control form-control-sm" placeholder="名前を変更"
+                maxlength="5" required />
+            </div>
+            <div class="col-sm-3 p-0">
+              <button type="submit" class="btn btn-primary btn-sm">
+                変更
+              </button>
+            </div>
+          </form>
+          <form id="player2-comment-form" name="player1CommentForm">
+            <div class="input-group mb-3">
+              <input type="text" id="player2-input-comment" class="form-control" placeholder="" aria-label=""
+                aria-describedby="button-addon2" maxlength="34" required />
+            </div>
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-info">
+                送信
+              </button>
+            </div>
+          </form>
+          <ul id="player2-comment" class="overflow-auto mt-4">
+          </ul>
         </div>
       </div>
     </div>
@@ -125,7 +138,8 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="/javascripts/draw.js"></script>
-  <script src="/javascripts/player.js"></script>
+  <script src="/javascripts/player1.js"></script>
+  <script src="/javascripts/player2.js"></script>
 </body>
 
 </html>

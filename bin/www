@@ -25,16 +25,22 @@ var server = http.createServer(app);
  */
 var io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
-  socket.on("chat", function(msg) {
-    io.emit("chat", msg);
+  socket.on("chat1", function(msg) {
+    io.emit("chat1", msg);
+  });
+  socket.on("chat2", function(msg) {
+    io.emit("chat2", msg);
   });
   socket.on("submitImage", function(imgSrc, count) {
     var newCount = ++count;
     console.log('submitImageが呼ばれました！：'+ newCount);
     io.emit("submitImage", imgSrc, newCount);
   });
-  socket.on("nameEdit", function(param) {
-    io.emit("nameEdit", param);
+  socket.on("nameEdit1", function(param) {
+    io.emit("nameEdit1", param);
+  });
+  socket.on("nameEdit2", function(param) {
+    io.emit("nameEdit2", param);
   });
 });
 

@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
     .getElementById("player1-comment-form")
     .addEventListener("submit", function(e) {
       e.preventDefault();
-      socketio.emit("chat", player1CommentForm.value);
+      socketio.emit("chat1", player1CommentForm.value);
       player1CommentForm.value = "";
     });
 
-  socketio.on("chat", function(msg) {
+  socketio.on("chat1", function(msg) {
     var li = document.createElement("li");
     var div = document.createElement("div");
     var span = document.createElement("small");
@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
   function player1NameEdit(e) {
     e.preventDefault();
     var player1NameForm = document.getElementById("player1-input-name");
-    socketio.emit("nameEdit", player1NameForm.value);
-    socketio.on("nameEdit", function(param) {
+    socketio.emit("nameEdit1", player1NameForm.value);
+    socketio.on("nameEdit1", function(param) {
       document.getElementById("player1-name").textContent = param;
     });
     player1NameForm.value = "";

@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
   /** ターン数のカウンター */
   var count = 0;
 
-  var player1Color = document.getElementById("player1-color");
-  var player1Size = document.getElementById("player1-size");
+  var drawColor = document.getElementById("draw-color");
+  var drawSize = document.getElementById("draw-size");
 
   var canvasWrap = document.getElementById("canvas-wrap");
   //canvas-wrap(親要素)のサイズをCanvasに指定
@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isDrag) {
       context.lineCap = "round"; // 丸みを帯びた線にする
       context.lineJoin = "round"; // 丸みを帯びた線にする
-      context.lineWidth = player1Size.value; // 線の太さ
-      context.strokeStyle = player1Color.value; // 線の色
+      context.lineWidth = drawSize.value; // 線の太さ
+      context.strokeStyle = drawColor.value; // 線の色
       // 書き始めは lastPosition.x, lastPosition.y の値はnullとなっているため、
       // クリックしたところを開始点としている。
       // この関数(draw関数内)の最後の2行で lastPosition.xとlastPosition.yに
