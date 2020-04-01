@@ -2,14 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
-  var player1Comment = document.getElementById("player1-comment");
-  var player1CommentForm = document.getElementById("player1CommentForm");
-
   // socket.io
   var socketio = io.connect("http://localhost:3000");
-  socketio.on("chat", function(msg) {
-    player1Comment.textContent = msg;
-  });
+
+  /** ターン数のカウンター */
+  var count = 0;
 
   var player1Color = document.getElementById("player1-color");
   var player1Size = document.getElementById("player1-size");
@@ -18,9 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
   //canvas-wrap(親要素)のサイズをCanvasに指定
   canvas.width = canvasWrap.clientWidth;
   canvas.height = canvasWrap.clientHeight;
-
-  // 描画された画像を保持する配列
-  var images = [];
 
   // 直前のマウスのcanvas上のx座標とy座標を記録する
   const lastPosition = { x: null, y: null };
@@ -72,42 +66,28 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function submitImage() {
-    if (images.length < 8) {
+    if (count < 8) {
       // canvasをpngへ変換
       var image = new Image();
       image.src = canvas.toDataURL("image/png");
-      var pic = document.getElementById("pic" + String(images.length + 1));
-      pic.src = image.src;
-
-      // imageを表示する
-      var picframe = document.getElementById(
-        "picframe" + String(images.length + 1)
-      );
-      picframe.style.visibility = "visible";
-
-      images.push(image); // 配列にimageを追加
-      clear(); // キャンバスをクリア
+      console.info('submitImageを呼びます！：' + image.src);
+      socketio.emit("submitImage", image.src, count); // wwwで要素への追加をする
+      socketio.on("submitImage", function(imgSrc, newCount) {
+        console.info('submitImageが返ってきました！：' + (newCount))
+        var pic = document.getElementById("pic" + String(newCount));
+        pic.src = imgSrc;
+        // imageを表示する
+        var picframe = document.getElementById(
+          "picframe" + String(newCount)
+        );
+        picframe.style.visibility = "visible";
+        count = newCount;
+        clear(); // キャンバスをクリア
+      });
     }
-    if (images.length >= 8) {
+    if (count >= 8) {
       alert("終了です!");
     }
-  }
-
-  function showNameEdit() {
-    var showPlayer1NameEdit = document.getElementById("player1-name-edit");
-    var visibility = showPlayer1NameEdit.style.visibility;
-    if (visibility === "hidden") {
-      showPlayer1NameEdit.style.visibility = "visible";
-    } else {
-      showPlayer1NameEdit.style.visibility = "hidden";
-    }
-  }
-
-  function player1NameEdit() {
-    var player1NameForm = document.getElementById("player1-name-form");
-    document.getElementById("player1-name").textContent = player1NameForm.value;
-    player1NameForm.value = "";
-    showNameEdit();
   }
 
   canvas.addEventListener("mousedown", dragStart);
@@ -120,17 +100,4 @@ document.addEventListener("DOMContentLoaded", function() {
   document
     .getElementById("submitImageButton")
     .addEventListener("click", submitImage);
-  document
-    .getElementById("show-player1-name-edit")
-    .addEventListener("click", showNameEdit);
-  document
-    .getElementById("player1-name-edit-button")
-    .addEventListener("click", player1NameEdit);
-  document
-    .getElementById("player1CommentButton")
-    .addEventListener("click", function(e) {
-      e.preventDefault();
-      socketio.emit("chat", player1CommentForm.value);
-      player1CommentForm.value = "";
-    });
 });

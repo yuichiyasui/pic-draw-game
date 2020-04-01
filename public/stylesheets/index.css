@@ -1,13 +1,15 @@
 #canvas {
-  background-color: rgba(255,255,255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
 }
+
 #canvas-wrap {
   position: relative;
   height: 0;
   overflow: hidden;
   padding-top: 56.25%;
 }
+
 #canvas {
   position: absolute;
   top: 0;
@@ -20,10 +22,21 @@
   height: 80vh;
 }
 
-body{
-    background-image: url('../images/background_image.png');
+body {
+  background-image: url('../images/background_image.png');
 }
 
 .card {
-    background-color: rgba(255,255,255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.message {
+  display: inline-block;
+  padding-top:0.4rem;
+  padding-bottom:0.4rem;
+  max-width: 80%;
+}
+
+#player1-comment {
+  max-height: 49vh;
 }
