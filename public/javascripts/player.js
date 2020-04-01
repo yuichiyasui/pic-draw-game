@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var player1CommentForm = document.getElementById("player1-input-comment");
 
   // socket.io
-  var socketio = io.connect("http://localhost:3000");
+  var socketio = io.connect("http://localhost:5001");
 
   document
     .getElementById("player1-comment-form")
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var player1NameForm = document.getElementById("player1-input-name");
     socketio.emit("nameEdit", player1NameForm.value);
     socketio.on("nameEdit", function(param) {
+        console.log('player1の名前変更が返ってきました：' + param);
       document.getElementById("player1-name").textContent = param;
     });
     player1NameForm.value = "";

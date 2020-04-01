@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const context = canvas.getContext("2d");
 
   // socket.io
-  var socketio = io.connect("http://localhost:3000");
+  var socketio = io.connect("http://localhost:5001");
 
   /** ターン数のカウンター */
   var count = 0;
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var image = new Image();
       image.src = canvas.toDataURL("image/png");
       console.info('submitImageを呼びます！：' + image.src);
-      socketio.emit("submitImage", image.src, count); // wwwで要素への追加をする
+      socketio.emit("submitImage", image.src, count);
       socketio.on("submitImage", function(imgSrc, newCount) {
         console.info('submitImageが返ってきました！：' + (newCount))
         var pic = document.getElementById("pic" + String(newCount));
