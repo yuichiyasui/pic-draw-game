@@ -53,16 +53,20 @@
 
     <main>
       <div class="container-fluid">
-        <div class="row justify-content-sm-center" id="container">
+        <div class="row justify-content-sm-center container_fix">
           <!-- プレイヤー1 -->
           <div class="col-sm-3 card">
             <div class="card-text">
               <div class="row my-2 py-3 pr-3">
                 <div class="col-sm-2 text-center ml-3 px-0">
-                  <i
+                  <button
+                    type="button"
                     id="show-player1-name-edit"
-                    class="fa fa-user-circle-o fa-3x text-secondary"
-                  ></i>
+                    title="名前を変える"
+                    class="player-button"
+                  >
+                    <i class="fa fa-user-circle-o fa-3x text-secondary"></i>
+                  </button>
                 </div>
                 <div class="col-sm-7 d-flex align-items-end px-0 ml-3">
                   <span id="player1-name" class="h3 text-secondary"
@@ -91,31 +95,39 @@
                   </button>
                 </div>
               </form>
-              <form id="player1-comment-form" name="player1CommentForm">
+              <form id="player1-comment-form" class="player-comment-form">
                 <div class="input-group mb-3">
                   <input
                     type="text"
                     id="player1-input-comment"
-                    class="form-control"
-                    placeholder=""
-                    aria-label=""
-                    aria-describedby="button-addon2"
                     maxlength="34"
                     required
+                    title="コメントを入力"
+                    class="form-control"
                   />
                 </div>
                 <div class="input-group-append">
                   <button type="submit" class="btn btn-info">送信</button>
                 </div>
               </form>
-              <ul id="player1-comment" class="overflow-auto mt-4"></ul>
+              <ul
+                id="player1-comment"
+                aria-busy="true"
+                aria-live="polite"
+                class="overflow-auto mt-4 player-comments"
+              ></ul>
             </div>
           </div>
 
           <!-- キャンバス -->
           <div class="col-sm-5 text-center">
-            <div id="canvas-wrap" class="my-2">
-              <canvas id="canvas" width="400" height="400"></canvas>
+            <div id="canvas-wrap" class="my-2 canvas-wrap">
+              <canvas
+                id="canvas"
+                width="400"
+                height="400"
+                class="canvas"
+              ></canvas>
             </div>
             <div class="row justify-content-sm-center mt-3">
               <div class="col-sm-3">
@@ -128,13 +140,14 @@
                   class="custom-range"
                   min="5"
                   max="20"
+                  title="ペンの太さを変える"
                 />
               </div>
             </div>
             <div class="row justify-content-sm-center mt-2">
               <button
                 type="button"
-                class="btn btn-info col-sm-5 mx-2"
+                class="btn btn-primary col-sm-5 mx-2"
                 id="submitImageButton"
               >
                 これでOK
@@ -159,7 +172,7 @@
                     background-color: rgba(255, 255, 255, 0.9);
                   "
                 >
-                  <img src="/" class="img-fluid" id="pic1" />
+                  <img src="/" alt="" id="pic1" class="img-fluid" />
                 </div>
               </div>
             </div>
@@ -170,10 +183,14 @@
             <div class="card-text">
               <div class="row my-2 py-3 pr-3">
                 <div class="col-sm-2 text-center ml-3 px-0">
-                  <i
+                  <button
+                    type="button"
                     id="show-player2-name-edit"
-                    class="fa fa-user-circle-o fa-3x text-secondary"
-                  ></i>
+                    title="名前を変える"
+                    class="player-button"
+                  >
+                    <i class="fa fa-user-circle-o fa-3x text-secondary"></i>
+                  </button>
                 </div>
                 <div class="col-sm-7 d-flex align-items-end px-0 ml-3">
                   <span id="player2-name" class="h3 text-secondary"
@@ -202,24 +219,27 @@
                   </button>
                 </div>
               </form>
-              <form id="player2-comment-form" name="player1CommentForm">
+              <form id="player2-comment-form">
                 <div class="input-group mb-3">
                   <input
                     type="text"
                     id="player2-input-comment"
-                    class="form-control"
-                    placeholder=""
-                    aria-label=""
-                    aria-describedby="button-addon2"
                     maxlength="34"
                     required
+                    title="コメントを入力"
+                    class="form-control"
                   />
                 </div>
                 <div class="input-group-append">
                   <button type="submit" class="btn btn-info">送信</button>
                 </div>
               </form>
-              <ul id="player2-comment" class="overflow-auto mt-4"></ul>
+              <ul
+                id="player2-comment"
+                aria-busy="true"
+                aria-live="polite"
+                class="overflow-auto mt-4 player-comments"
+              ></ul>
             </div>
           </div>
         </div>
@@ -262,6 +282,7 @@
     </main>
 
     <script
+      defer
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"

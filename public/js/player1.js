@@ -7,18 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
   var player1CommentForm = document.getElementById("player1-input-comment");
 
   // socket.io
-  const socket = io;
-  var socketio = io.connect();
+  const socket = io();
 
   document
     .getElementById("player1-comment-form")
     .addEventListener("submit", function (e) {
       e.preventDefault();
-      socketio.emit("chat1", player1CommentForm.value);
+      socket.emit("chat1", player1CommentForm.value);
       player1CommentForm.value = "";
     });
 
-  socketio.on("chat1", function (msg) {
+  socket.on("chat1", function (msg) {
     var li = document.createElement("li");
     var div = document.createElement("div");
     var span = document.createElement("small");
@@ -61,13 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
   function player1NameEdit(e) {
     e.preventDefault();
     var player1NameForm = document.getElementById("player1-input-name");
-    socketio.emit("nameEdit1", player1NameForm.value);
-    socketio.on("nameEdit1", function (param) {
-      document.getElementById("player1-name").textContent = param;
-    });
+    socket.emit("nameEdit1", player1NameForm.value);
+
     player1NameForm.value = "";
     showNameEdit();
   }
+
+  socket.on("nameEdit1", function (param) {
+    document.getElementById("player1-name").textContent = param;
+  });
+
   document
     .getElementById("show-player1-name-edit")
     .addEventListener("click", showNameEdit);

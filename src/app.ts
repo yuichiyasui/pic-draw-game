@@ -39,13 +39,28 @@ app.get("/", (_, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  socket.on("chat1", (msg) => {
+    io.emit("chat1", msg);
+  });
+
+  socket.on("chat2", (msg) => {
+    io.emit("chat2", msg);
+  });
+
+  socket.on("nameEdit1", (name) => {
+    io.emit("nameEdit1", name);
+  });
+
+  socket.on("nameEdit2", (name) => {
+    io.emit("nameEdit2", name);
+  });
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
 });
 
 const port = 3000;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running on http://localhost:${port} 🚀`);
 });

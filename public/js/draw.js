@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const context = canvas.getContext("2d");
 
   // socket.io
-  var socketio = io.connect();
+  const socket = io();
+  // var socketio = io.connect();
 
   /** ターン数のカウンター */
   var count = 0;
