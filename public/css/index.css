@@ -23,7 +23,7 @@
 }
 
 body {
-  background-image: url('../images/background_image.png');
+  background-image: url("../img/background_image.png");
 }
 
 .card {
@@ -32,8 +32,8 @@ body {
 
 .message {
   display: inline-block;
-  padding-top:0.4rem;
-  padding-bottom:0.4rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
   max-width: 80%;
 }
 
