@@ -1,7 +1,8 @@
-import createError from "http-errors";
-import express, { ErrorRequestHandler } from "express";
-import path from "path";
+import path from "node:path";
+
 import cookieParser from "cookie-parser";
+import express, { ErrorRequestHandler } from "express";
+import createError from "http-errors";
 import logger from "morgan";
 
 import indexRouter from "./routes";
@@ -21,11 +22,11 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (_, __, next) {
   next(createError(404));
 });
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+const errorHandler: ErrorRequestHandler = (err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

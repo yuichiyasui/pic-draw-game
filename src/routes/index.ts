@@ -1,6 +1,7 @@
 import fs from "node:fs";
-import express from "express";
+
 import ejs from "ejs";
+import express from "express";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const navbar = fs.readFileSync(`${VIEWS_DIR}navbar.ejs`, {
   encoding: "utf-8",
 });
 
-router.get("/", function (req, res) {
+router.get("/", function (_, res) {
   const data = ejs.render(index, { navbar: navbar });
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(data);
