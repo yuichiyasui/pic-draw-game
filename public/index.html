@@ -82,12 +82,13 @@
                 <div class="col-sm-7 pr-1">
                   <input
                     type="text"
-                    id="player1-input-name"
+                    name="playerName"
                     class="form-control form-control-sm"
                     placeholder="名前を変更"
                     maxlength="5"
                     required
                   />
+                  <input type="hidden" name="playerId" value="1" />
                 </div>
                 <div class="col-sm-3 p-0">
                   <button type="submit" class="btn btn-primary btn-sm">
@@ -99,12 +100,13 @@
                 <div class="input-group mb-3">
                   <input
                     type="text"
-                    id="player1-input-comment"
+                    name="comment"
                     maxlength="34"
                     required
                     title="コメントを入力"
                     class="form-control"
                   />
+                  <input type="hidden" name="playerId" value="1" />
                 </div>
                 <div class="input-group-append">
                   <button type="submit" class="btn btn-info">送信</button>
@@ -114,7 +116,7 @@
                 id="player1-comment"
                 aria-busy="true"
                 aria-live="polite"
-                class="overflow-auto mt-4 player-comments"
+                class="overflow-auto mt-4 list-unstyled player-comments"
               ></ul>
             </div>
           </div>
@@ -206,12 +208,13 @@
                 <div class="col-sm-7 pr-1">
                   <input
                     type="text"
-                    id="player2-input-name"
+                    name="playerName"
                     class="form-control form-control-sm"
                     placeholder="名前を変更"
                     maxlength="5"
                     required
                   />
+                  <input type="hidden" name="playerId" value="2" />
                 </div>
                 <div class="col-sm-3 p-0">
                   <button type="submit" class="btn btn-primary btn-sm">
@@ -223,12 +226,13 @@
                 <div class="input-group mb-3">
                   <input
                     type="text"
-                    id="player2-input-comment"
+                    name="comment"
                     maxlength="34"
                     required
                     title="コメントを入力"
                     class="form-control"
                   />
+                  <input type="hidden" name="playerId" value="2" />
                 </div>
                 <div class="input-group-append">
                   <button type="submit" class="btn btn-info">送信</button>
@@ -244,42 +248,50 @@
           </div>
         </div>
       </div>
+    </main>
 
-      <div
-        class="modal fade"
-        id="ruleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="ruleModalLabel"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="modal-title h5" id="ruleModalLabel">ルール説明</h2>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="閉じる"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <ul>
-                <li>交代でお絵かきをしてしりとりをしていきます。</li>
-                <li>8枚目の絵を描いたら終了です。</li>
-                <li>全部しりとりでつながってたら二人とも勝ちです。</li>
-                <li>
-                  うまくつながってない場合は受け取り間違えた人が負けです。
-                </li>
-                <li>ゲーム中にチャットで答えを言うのは禁止です。</li>
-                <li>名前の右のセレクターで色とペンの太さが変えられます。</li>
-                <li>書き直す場合はペンの色を白にして消してください。</li>
-              </ul>
-            </div>
+    <div
+      class="modal fade"
+      id="ruleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="ruleModalLabel"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="ruleModalLabel">ルール説明</h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="閉じる"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>交代でお絵かきをしてしりとりをしていきます。</li>
+              <li>8枚目の絵を描いたら終了です。</li>
+              <li>全部しりとりでつながってたら二人とも勝ちです。</li>
+              <li>うまくつながってない場合は受け取り間違えた人が負けです。</li>
+              <li>ゲーム中にチャットで答えを言うのは禁止です。</li>
+              <li>名前の右のセレクターで色とペンの太さが変えられます。</li>
+              <li>書き直す場合はペンの色を白にして消してください。</li>
+            </ul>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+
+    <template id="comment-template">
+      <li>
+        <p
+          data-template="comment"
+          class="alert alert-light rounded-pill shadow-sm mr-2 message"
+        ></p>
+        <small data-template="time" class="text-secondary"></small>
+      </li>
+    </template>
 
     <script
       defer
@@ -288,7 +300,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="module" src="js/draw.js"></script>
-    <script type="module" src="js/player1.js"></script>
-    <script type="module" src="js/player2.js"></script>
+    <script type="module" src="js/player.js"></script>
   </body>
 </html>
