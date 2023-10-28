@@ -1,25 +1,21 @@
+import { createServer } from "node:http";
 import path from "node:path";
 
 import cookieParser from "cookie-parser";
 import express, { ErrorRequestHandler } from "express";
 import createError from "http-errors";
 import logger from "morgan";
-
-import indexRouter from "./routes";
+import { Server } from "socket.io";
 
 const app = express();
-
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+const server = createServer(app);
+const io = new Server(server);
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
-
-app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function (_, __, next) {
@@ -37,6 +33,17 @@ const errorHandler: ErrorRequestHandler = (err, req, res) => {
 };
 
 app.use(errorHandler);
+
+app.get("/", (_, res) => {
+  res.sendFile("index.html");
+});
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
 
 const port = 3000;
 app.listen(port, () => {

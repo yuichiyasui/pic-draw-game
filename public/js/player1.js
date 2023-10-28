@@ -1,3 +1,5 @@
+import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   /** チャット関連 */
   var player1CommentList = document.getElementById("player1-comment");
@@ -5,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var player1CommentForm = document.getElementById("player1-input-comment");
 
   // socket.io
-  var socketio = io.connect("http://localhost:3000");
+  const socket = io;
+  var socketio = io.connect();
 
   document
     .getElementById("player1-comment-form")

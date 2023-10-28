@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>お絵かきアプリ</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link href="css/index.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="bg-white bg-opacity-50 px-4">
+      <nav class="navbar navbar-expand-lg mb-4">
+        <h1 class="d-flex align-items-center mb-0">
+          <a class="navbar-brand" href="/">絵しりとりゲーム</a>
+        </h1>
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-toggle="collapse"
+          data-target="#Navber"
+          aria-controls="Navber"
+          aria-expanded="false"
+          aria-label="ナビゲーションの切替"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="Navber">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <button
+                type="button"
+                class="nav-link"
+                data-bs-toggle="modal"
+                data-bs-target="#ruleModal"
+              >
+                ルール
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container-fluid">
+        <div class="row justify-content-sm-center" id="container">
+          <!-- プレイヤー1 -->
+          <div class="col-sm-3 card">
+            <div class="card-text">
+              <div class="row my-2 py-3 pr-3">
+                <div class="col-sm-2 text-center ml-3 px-0">
+                  <i
+                    id="show-player1-name-edit"
+                    class="fa fa-user-circle-o fa-3x text-secondary"
+                  ></i>
+                </div>
+                <div class="col-sm-7 d-flex align-items-end px-0 ml-3">
+                  <span id="player1-name" class="h3 text-secondary"
+                    >Player1</span
+                  >
+                </div>
+              </div>
+              <form
+                id="player1-name-edit-form"
+                class="form-group row"
+                style="visibility: hidden"
+              >
+                <div class="col-sm-7 pr-1">
+                  <input
+                    type="text"
+                    id="player1-input-name"
+                    class="form-control form-control-sm"
+                    placeholder="名前を変更"
+                    maxlength="5"
+                    required
+                  />
+                </div>
+                <div class="col-sm-3 p-0">
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    変更
+                  </button>
+                </div>
+              </form>
+              <form id="player1-comment-form" name="player1CommentForm">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    id="player1-input-comment"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="button-addon2"
+                    maxlength="34"
+                    required
+                  />
+                </div>
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-info">送信</button>
+                </div>
+              </form>
+              <ul id="player1-comment" class="overflow-auto mt-4"></ul>
+            </div>
+          </div>
+
+          <!-- キャンバス -->
+          <div class="col-sm-5 text-center">
+            <div id="canvas-wrap" class="my-2">
+              <canvas id="canvas" width="400" height="400"></canvas>
+            </div>
+            <div class="row justify-content-sm-center mt-3">
+              <div class="col-sm-3">
+                <input type="color" id="draw-color" value="#000000" />
+              </div>
+              <div class="col-sm-7">
+                <input
+                  type="range"
+                  id="draw-size"
+                  class="custom-range"
+                  min="5"
+                  max="20"
+                />
+              </div>
+            </div>
+            <div class="row justify-content-sm-center mt-2">
+              <button
+                type="button"
+                class="btn btn-info col-sm-5 mx-2"
+                id="submitImageButton"
+              >
+                これでOK
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning text-white col-sm-5 mx-2"
+                id="clearButton"
+              >
+                描き直す
+              </button>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <!-- TODO: 8個出力する-->
+                <div
+                  class="mt-3 px-1"
+                  id="picframe1"
+                  style="
+                    height: 15vh;
+                    visibility: hidden;
+                    background-color: rgba(255, 255, 255, 0.9);
+                  "
+                >
+                  <img src="/" class="img-fluid" id="pic1" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- プレイヤー2 -->
+          <div class="col-sm-3 card">
+            <div class="card-text">
+              <div class="row my-2 py-3 pr-3">
+                <div class="col-sm-2 text-center ml-3 px-0">
+                  <i
+                    id="show-player2-name-edit"
+                    class="fa fa-user-circle-o fa-3x text-secondary"
+                  ></i>
+                </div>
+                <div class="col-sm-7 d-flex align-items-end px-0 ml-3">
+                  <span id="player2-name" class="h3 text-secondary"
+                    >Player2</span
+                  >
+                </div>
+              </div>
+              <form
+                id="player2-name-edit-form"
+                class="form-group row"
+                style="visibility: hidden"
+              >
+                <div class="col-sm-7 pr-1">
+                  <input
+                    type="text"
+                    id="player2-input-name"
+                    class="form-control form-control-sm"
+                    placeholder="名前を変更"
+                    maxlength="5"
+                    required
+                  />
+                </div>
+                <div class="col-sm-3 p-0">
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    変更
+                  </button>
+                </div>
+              </form>
+              <form id="player2-comment-form" name="player1CommentForm">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    id="player2-input-comment"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="button-addon2"
+                    maxlength="34"
+                    required
+                  />
+                </div>
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-info">送信</button>
+                </div>
+              </form>
+              <ul id="player2-comment" class="overflow-auto mt-4"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="ruleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="ruleModalLabel"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title h5" id="ruleModalLabel">ルール説明</h2>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="閉じる"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul>
+                <li>交代でお絵かきをしてしりとりをしていきます。</li>
+                <li>8枚目の絵を描いたら終了です。</li>
+                <li>全部しりとりでつながってたら二人とも勝ちです。</li>
+                <li>
+                  うまくつながってない場合は受け取り間違えた人が負けです。
+                </li>
+                <li>ゲーム中にチャットで答えを言うのは禁止です。</li>
+                <li>名前の右のセレクターで色とペンの太さが変えられます。</li>
+                <li>書き直す場合はペンの色を白にして消してください。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="js/draw.js"></script>
+    <script type="module" src="js/player1.js"></script>
+    <script type="module" src="js/player2.js"></script>
+  </body>
+</html>

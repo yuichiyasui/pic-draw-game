@@ -1,9 +1,11 @@
+import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
   // socket.io
-  var socketio = io.connect("http://localhost:3000");
+  var socketio = io.connect();
 
   /** ターン数のカウンター */
   var count = 0;
