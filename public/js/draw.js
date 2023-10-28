@@ -1,15 +1,13 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
+const socket = io();
+
+/** ターン数のカウンター */
+let count = 0;
+
 document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
-
-  // socket.io
-  const socket = io();
-  // var socketio = io.connect();
-
-  /** ターン数のカウンター */
-  var count = 0;
 
   var drawColor = document.getElementById("draw-color");
   var drawSize = document.getElementById("draw-size");
@@ -68,28 +66,30 @@ document.addEventListener("DOMContentLoaded", function () {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-  function submitImage() {
+  const submitImage = () => {
     if (count < 8) {
       // canvasをpngへ変換
-      var image = new Image();
+      const image = new Image();
       image.src = canvas.toDataURL("image/png");
-      console.info("submitImageを呼びます！：" + image.src);
-      socketio.emit("submitImage", image.src, count); // wwwで要素への追加をする
-      socketio.on("submitImage", function (imgSrc, newCount) {
-        console.info("submitImageが返ってきました！：" + newCount);
-        var pic = document.getElementById("pic" + String(newCount));
-        pic.src = imgSrc;
-        // imageを表示する
-        var picframe = document.getElementById("picframe" + String(newCount));
-        picframe.style.visibility = "visible";
-        count = newCount;
-        clear(); // キャンバスをクリア
-      });
+      socket.emit("canvas", { image: image.src, count: count + 1 });
     }
+  };
+
+  socket.on("canvas", ({ image, count: newCount }) => {
+    const template = document.getElementById("pic-frame-template");
+    const clone = template.content.cloneNode(true);
+    const picElm = clone.querySelector("[data-template=pic]");
+    picElm.src = image;
+    const picFrameListElm = document.getElementById("pic-frame-list");
+    picFrameListElm.appendChild(clone);
+
+    count = newCount;
+    clear(); // キャンバスをクリア
+
     if (count >= 8) {
       alert("終了です!");
     }
-  }
+  });
 
   canvas.addEventListener("mousedown", dragStart);
   canvas.addEventListener("mouseup", dragEnd);

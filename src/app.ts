@@ -42,6 +42,10 @@ io.on("connection", (socket) => {
     io.emit("nameEdit2", name);
   });
 
+  socket.on("canvas", (data: { image: string; count: number }) => {
+    io.emit("canvas", data);
+  });
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
