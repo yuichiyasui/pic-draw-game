@@ -1,13 +1,15 @@
-var express = require("express");
-var router = express.Router();
-var fs = require("fs");
-var ejs = require("ejs");
+const express = require("express");
+const router = express.Router();
+const fs = require("fs");
+const ejs = require("ejs");
 
-var index = fs.readFileSync("./views/index.ejs", "UTF-8");
-var navbar = fs.readFileSync("./views/navbar.ejs", "UTF-8");
+const VIEWS_DIR = __dirname + "/../views/";
+
+const index = fs.readFileSync(`${VIEWS_DIR}index.ejs`, "UTF-8");
+const navbar = fs.readFileSync(`${VIEWS_DIR}navbar.ejs`, "UTF-8");
 
 router.get("/", function (req, res) {
-  var data = ejs.render(index, { navbar: navbar });
+  const data = ejs.render(index, { navbar: navbar });
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(data);
   res.end();
