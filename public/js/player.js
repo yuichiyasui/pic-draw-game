@@ -62,17 +62,15 @@ const getCurrentTime = () => {
  *
  * @param {string} comment コメント
  * @param {string} playerId プレイヤーID
+ * @returns {Element} コメントの要素
  */
 const createCommentElement = (comment, playerId) => {
   const template = document.getElementById("comment-template");
   const clone = template.content.cloneNode(true);
   clone.querySelector("[data-template=comment]").textContent = comment;
   clone.querySelector("[data-template=time]").textContent = getCurrentTime();
-  const playerCommentList = document.getElementById(
-    `player${playerId}-comment`,
-  );
-  playerCommentList.appendChild(clone);
-  playerCommentList.scrollTop = playerCommentList.scrollHeight; // 一番下までスクロール
+
+  return clone;
 };
 
 /**
