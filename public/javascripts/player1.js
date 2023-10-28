@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   /** チャット関連 */
   var player1CommentList = document.getElementById("player1-comment");
   player1CommentList.classList.add("list-unstyled");
@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document
     .getElementById("player1-comment-form")
-    .addEventListener("submit", function(e) {
+    .addEventListener("submit", function (e) {
       e.preventDefault();
       socketio.emit("chat1", player1CommentForm.value);
       player1CommentForm.value = "";
     });
 
-  socketio.on("chat1", function(msg) {
+  socketio.on("chat1", function (msg) {
     var li = document.createElement("li");
     var div = document.createElement("div");
     var span = document.createElement("small");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "rounded-pill",
       "shadow-sm",
       "mr-2",
-      "message"
+      "message",
     );
     li.appendChild(div);
     var date = new Date();
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     e.preventDefault();
     var player1NameForm = document.getElementById("player1-input-name");
     socketio.emit("nameEdit1", player1NameForm.value);
-    socketio.on("nameEdit1", function(param) {
+    socketio.on("nameEdit1", function (param) {
       document.getElementById("player1-name").textContent = param;
     });
     player1NameForm.value = "";

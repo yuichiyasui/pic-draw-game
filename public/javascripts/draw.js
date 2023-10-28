@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("canvas");
   const context = canvas.getContext("2d");
 
@@ -70,16 +70,14 @@ document.addEventListener("DOMContentLoaded", function() {
       // canvasをpngへ変換
       var image = new Image();
       image.src = canvas.toDataURL("image/png");
-      console.info('submitImageを呼びます！：' + image.src);
+      console.info("submitImageを呼びます！：" + image.src);
       socketio.emit("submitImage", image.src, count); // wwwで要素への追加をする
-      socketio.on("submitImage", function(imgSrc, newCount) {
-        console.info('submitImageが返ってきました！：' + (newCount))
+      socketio.on("submitImage", function (imgSrc, newCount) {
+        console.info("submitImageが返ってきました！：" + newCount);
         var pic = document.getElementById("pic" + String(newCount));
         pic.src = imgSrc;
         // imageを表示する
-        var picframe = document.getElementById(
-          "picframe" + String(newCount)
-        );
+        var picframe = document.getElementById("picframe" + String(newCount));
         picframe.style.visibility = "visible";
         count = newCount;
         clear(); // キャンバスをクリア
@@ -93,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
   canvas.addEventListener("mousedown", dragStart);
   canvas.addEventListener("mouseup", dragEnd);
   canvas.addEventListener("mouseout", dragEnd);
-  canvas.addEventListener("mousemove", e => {
+  canvas.addEventListener("mousemove", (e) => {
     draw(e.layerX, e.layerY);
   });
   document.getElementById("clearButton").addEventListener("click", clear);
