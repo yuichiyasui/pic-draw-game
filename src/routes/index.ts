@@ -1,12 +1,17 @@
-const express = require("express");
+import fs from "node:fs";
+import express from "express";
+import ejs from "ejs";
+
 const router = express.Router();
-const fs = require("fs");
-const ejs = require("ejs");
 
 const VIEWS_DIR = __dirname + "/../views/";
 
-const index = fs.readFileSync(`${VIEWS_DIR}index.ejs`, "UTF-8");
-const navbar = fs.readFileSync(`${VIEWS_DIR}navbar.ejs`, "UTF-8");
+const index = fs.readFileSync(`${VIEWS_DIR}index.ejs`, {
+  encoding: "utf-8",
+});
+const navbar = fs.readFileSync(`${VIEWS_DIR}navbar.ejs`, {
+  encoding: "utf-8",
+});
 
 router.get("/", function (req, res) {
   const data = ejs.render(index, { navbar: navbar });
@@ -15,4 +20,4 @@ router.get("/", function (req, res) {
   res.end();
 });
 
-module.exports = router;
+export default router;
